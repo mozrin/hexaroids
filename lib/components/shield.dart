@@ -1,6 +1,5 @@
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'package:flutter/painting.dart';
 import 'package:walot/components/ship.dart';
 import 'package:flutter/material.dart';
 
