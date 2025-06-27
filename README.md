@@ -1,7 +1,7 @@
-# Walot (Waste A Lot Of Time)
+# Hexaroids (damn ... that is an unfortunate sounding name)
 
 > A zero-stress Asteroids clone built with Flutter, Dart & Flame.  
-> Because sometimes you just want to waste a lot of time.
+> Because sometimes you just want to waste a little time and have some fun.
 
 ---
 
@@ -42,7 +42,8 @@ Walot is a playful side project—no grand ambitions here—just a chance to lea
 ### Installation
 
 ```bash
-git clone https://github.com/mozrin/walot.git
-cd walot
+git clone https://github.com/mozrin/hexaroids.git
+cd hexaroids
 flutter pub get
+flutter run
 ```
