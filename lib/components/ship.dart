@@ -8,10 +8,8 @@ class Ship extends PositionComponent with HasGameReference<FlameGame> {
   double fireRate = 0.1;
   double fireCooldown = 0.0;
   Vector2? fireDirection;
-
   Ship({required Vector2 position})
-    : super(position: position, size: Vector2(20, 20), anchor: Anchor.center);
-
+    : super(position: position, size: Vector2(0, 0), anchor: Anchor.center);
   @override
   void update(double dt) {
     fireCooldown -= dt;
@@ -28,13 +26,17 @@ class Ship extends PositionComponent with HasGameReference<FlameGame> {
     angle = atan2(direction.y, direction.x);
   }
 
+  void stopFiring() {
+    fireDirection = null;
+  }
+
   @override
   void render(Canvas canvas) {
     final paint = Paint()..color = const Color(0xFFFFFFFF);
     final path = Path();
-    path.moveTo(5, 0);
-    path.lineTo(-15, -10);
-    path.lineTo(-15, 10);
+    path.moveTo(13.333333, 0);
+    path.lineTo(-6.666667, -10);
+    path.lineTo(-6.666667, 10);
     path.close();
     canvas.drawPath(path, paint);
   }

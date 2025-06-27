@@ -8,7 +8,13 @@ void main() {
     GestureDetector(
       onTapDown: (TapDownDetails details) {
         final pos = details.localPosition;
-        game.handleTap(Vector2(pos.dx, pos.dy));
+        game.handleTapDown(Vector2(pos.dx, pos.dy));
+      },
+      onTapUp: (TapUpDetails details) {
+        game.handleTapUp();
+      },
+      onTapCancel: () {
+        game.handleTapUp();
       },
       child: GameWidget(game: game),
     ),
