@@ -8,7 +8,7 @@ import 'package:walot/components/explosion.dart';
 import 'package:walot/components/shield.dart';
 
 class Asteroid extends PositionComponent with HasGameReference<FlameGame> {
-  double speed = 50;
+  final double speed = 40;
   double health = 50;
   late Vector2 velocity;
   bool hasSplit;
@@ -25,11 +25,28 @@ class Asteroid extends PositionComponent with HasGameReference<FlameGame> {
   void update(double dt) {
     super.update(dt);
     position += velocity * dt;
+
+    final otherAsteroids = parent?.children.whereType<Asteroid>().toList();
+    if (otherAsteroids != null) {
+      for (final other in otherAsteroids) {
+        if (other == this) continue;
+
+        if (toRect().overlaps(other.toRect())) {
+          final Vector2 thisCenter = position + size / 2;
+          final Vector2 otherCenter = other.position + other.size / 2;
+
+          final Vector2 normal = (thisCenter - otherCenter).normalized();
+
+          velocity = velocity - normal * 2 * velocity.dot(normal);
+          velocity = velocity.normalized() * speed;
+        }
+      }
+    }
+
     final ship = parent?.children.whereType<Ship>().firstOrNull;
     if (ship != null) {
       Shield? outermostHitShield;
       double maxRadius = -1;
-
       for (final shield in game.children.whereType<Shield>()) {
         if (!shield.hit &&
             position.distanceTo(ship.position) <= shield.radius) {
@@ -39,10 +56,10 @@ class Asteroid extends PositionComponent with HasGameReference<FlameGame> {
           }
         }
       }
-
       if (outermostHitShield != null) {
         final n = (position - ship.position).normalized();
         velocity = velocity - n * 2 * velocity.dot(n);
+        velocity = velocity.normalized() * speed;
         outermostHitShield.hit = true;
       }
 
@@ -51,25 +68,27 @@ class Asteroid extends PositionComponent with HasGameReference<FlameGame> {
         return;
       }
     }
+
     if (health <= 0) {
       if (!hasSplit) {
         final rand = Random();
         for (int i = 0; i < 2; i++) {
           final dir =
               Vector2(
-                rand.nextDouble() - 0.5,
-                rand.nextDouble() - 0.5,
+                rand.nextDouble() * 2 - 1,
+                rand.nextDouble() * 2 - 1,
               ).normalized();
+          final fragmentPosition = position.clone() + dir * 10;
           final fragment = Asteroid(
-            position: position.clone(),
+            position: fragmentPosition,
             direction: dir,
             hasSplit: true,
           );
           fragment.size.setFrom(size.clone()..scale(0.5));
-          fragment.speed = speed;
           parent?.add(fragment);
         }
       }
+
       final manager = parent?.children.whereType<ScoreManager>().firstOrNull;
       final isInCircle =
           ship != null && position.distanceTo(ship.position) < 100;

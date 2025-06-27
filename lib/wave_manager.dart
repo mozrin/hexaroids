@@ -21,7 +21,6 @@ class WaveManager extends Component with HasGameReference<FlameGame> {
           final spawn = _randomOffsetOutsideGame();
           final direction = _randomDirection();
           final asteroid = Asteroid(position: spawn, direction: direction);
-          asteroid.speed *= 2;
           game.add(asteroid);
         });
       }
