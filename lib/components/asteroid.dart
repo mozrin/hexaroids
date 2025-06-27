@@ -9,7 +9,7 @@ import 'package:walot/components/shield.dart';
 
 class Asteroid extends PositionComponent with HasGameReference<FlameGame> {
   double speed = 50;
-  double health = 100;
+  double health = 50;
   late Vector2 velocity;
   bool hasSplit;
 
