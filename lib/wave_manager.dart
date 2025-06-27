@@ -9,7 +9,6 @@ class WaveManager extends Component with HasGameReference<FlameGame> {
   double timeSinceLastWave = 0;
   int enemiesPerWave = 3;
   int waveCount = 0;
-
   @override
   void update(double dt) {
     timeSinceLastWave += dt;
@@ -46,12 +45,9 @@ class WaveManager extends Component with HasGameReference<FlameGame> {
   }
 
   Vector2 _randomDirection() {
-    final gameWidth = game.size.x;
-    final gameHeight = game.size.y;
-    final targetPosition = Vector2(gameWidth / 2, gameHeight / 2);
     return Vector2(
-      targetPosition.x + (_random.nextDouble() * 100 - 50),
-      targetPosition.y + (_random.nextDouble() * 100 - 50),
+      _random.nextDouble() * 2 - 1,
+      _random.nextDouble() * 2 - 1,
     ).normalized();
   }
 }
