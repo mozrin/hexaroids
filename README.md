@@ -1,16 +1,48 @@
-# walot
+# Walot (Waste A Lot Of Time)
 
-A new Flutter project.
+> A zero-stress Asteroids clone built with Flutter, Dart & Flame.  
+> Because sometimes you just want to waste a lot of time.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🚀 Overview
 
-A few resources to get you started if this is your first Flutter project:
+Walot is a playful side project—no grand ambitions here—just a chance to learn the Flame game engine on top of Flutter. Pilot your ship, blast floating rocks, watch them split and scatter, and see how long you survive before the screen fills up!
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## ⭐ Features
+
+- Classic Asteroids-style gameplay
+- Procedurally-spawning asteroids that split in two
+- Touch & keyboard controls
+- Score tracking
+- Minimal UI & no ads—pure sandbox fun
+
+---
+
+## 🛠 Tech Stack
+
+- Flutter 3.x
+- Dart 2.x
+- Flame 1.x
+- Vector Math for 2D physics
+- Git & GitHub for version control
+
+---
+
+## 📥 Getting Started
+
+### Prerequisites
+
+- Flutter SDK installed (≥ 3.0)
+- A connected device or emulator (Android, iOS, Linux, macOS, Windows, Web)
+- Git (or GitHub CLI)
+
+### Installation
+
+```bash
+git clone https://github.com/mozrin/walot.git
+cd walot
+flutter pub get
+```

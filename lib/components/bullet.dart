@@ -1,7 +1,7 @@
 import 'package:flame/components.dart';
 import 'package:flutter/painting.dart';
-import 'enemy.dart';
-import '../score_manager.dart';
+import 'package:walot/components/asteroid.dart';
+import 'package:walot/score_manager.dart';
 
 class Bullet extends PositionComponent {
   Vector2 velocity;
@@ -9,7 +9,7 @@ class Bullet extends PositionComponent {
   double damage = 50;
 
   Bullet({required Vector2 position, required this.velocity})
-    : super(position: position, size: Vector2(10, 10));
+    : super(position: position, size: Vector2(4, 4));
 
   @override
   Future<void> onLoad() async {
@@ -20,12 +20,11 @@ class Bullet extends PositionComponent {
   @override
   void update(double dt) {
     position += velocity * speed * dt;
-
-    final enemies = parent?.children.whereType<Enemy>();
+    final enemies = parent?.children.whereType<Asteroid>();
     if (enemies != null) {
-      for (final enemy in enemies) {
-        if (toRect().overlaps(enemy.toRect())) {
-          enemy.takeDamage(damage);
+      for (final asteroid in enemies) {
+        if (toRect().overlaps(asteroid.toRect())) {
+          asteroid.takeDamage(damage);
           removeFromParent();
           break;
         }

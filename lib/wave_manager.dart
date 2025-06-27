@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'components/enemy.dart';
+import 'package:walot/components/asteroid.dart';
 
 class WaveManager extends Component with HasGameReference<FlameGame> {
   final Random _random = Random();
@@ -13,20 +13,17 @@ class WaveManager extends Component with HasGameReference<FlameGame> {
   @override
   void update(double dt) {
     timeSinceLastWave += dt;
-
     if (timeSinceLastWave >= timeBetweenWaves) {
       timeSinceLastWave = 0;
       waveCount += 1;
-
       for (int i = 0; i < (enemiesPerWave + waveCount) * 2; i++) {
         final delay = i * 0.3;
-
         Future.delayed(Duration(milliseconds: (delay * 1000).toInt()), () {
           final spawn = _randomOffsetOutsideGame();
           final direction = _randomDirection();
-          final enemy = Enemy(position: spawn, direction: direction);
-          enemy.speed *= 2;
-          game.add(enemy);
+          final asteroid = Asteroid(position: spawn, direction: direction);
+          asteroid.speed *= 2;
+          game.add(asteroid);
         });
       }
     }
@@ -49,6 +46,12 @@ class WaveManager extends Component with HasGameReference<FlameGame> {
   }
 
   Vector2 _randomDirection() {
-    return Vector2(_random.nextDouble() - 0.5, _random.nextDouble() - 0.5);
+    final gameWidth = game.size.x;
+    final gameHeight = game.size.y;
+    final targetPosition = Vector2(gameWidth / 2, gameHeight / 2);
+    return Vector2(
+      targetPosition.x + (_random.nextDouble() * 100 - 50),
+      targetPosition.y + (_random.nextDouble() * 100 - 50),
+    ).normalized();
   }
 }

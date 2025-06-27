@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
-import 'components/enemy.dart';
+import 'package:walot/components/asteroid.dart';
 
-class EnemySpawner extends Component with HasGameRef<FlameGame> {
+class AsteroidSpawner extends Component with HasGameReference<FlameGame> {
   final Random _random = Random();
   double timer = 0;
   double interval = 2.0;
@@ -19,7 +19,7 @@ class EnemySpawner extends Component with HasGameRef<FlameGame> {
         _random.nextDouble() - 0.5,
         _random.nextDouble() - 0.5,
       );
-      gameRef.add(Enemy(position: spawnPos, direction: direction));
+      game.add(Asteroid(position: spawnPos, direction: direction));
     }
   }
 }
